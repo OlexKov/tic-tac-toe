@@ -3,10 +3,8 @@ import { useState } from "react";
 
 export default function Board({ xIsNext, squares, onPlay }) {
   const [steps, setSteps] = useState(0);
-  const [winner, setWinner] = useState(null);
-    function handleClick(i) {
-      setWinner(calculateWinner(squares));
-      if (winner || squares[i]) {
+     function handleClick(i) {
+      if (calculateWinner(squares) || squares[i]) {
         return;
       }
       const nextSquares = squares.slice();
@@ -18,6 +16,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
       onPlay(nextSquares);
       setSteps(steps + 1)
     }
+    let winner = calculateWinner(squares)
     let status;
     if(steps === 9){
       status = 'Draw'
@@ -29,7 +28,6 @@ export default function Board({ xIsNext, squares, onPlay }) {
         status = 'Next player: ' + (xIsNext ? 'X' : 'O');
       }
     }
-   
   
     return (
       <>
